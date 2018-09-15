@@ -1,5 +1,8 @@
 package Algorithms.S2P4;
 
+import javax.swing.*;
+import java.util.PriorityQueue;
+
 public class MaxPQ<key extends Comparable<key>>{
     private key[] pq;
     private int N = 0;
@@ -108,21 +111,5 @@ public class MaxPQ<key extends Comparable<key>>{
             exch(k, j);
             k = j;
         }
-    }
-
-    public static void main(String[] args)
-    {
-        MaxPQ<Integer> pq = new MaxPQ<>();
-        pq.insert(6);
-        pq.insert(1);
-        pq.insert(3);
-        pq.insert(7);
-        pq.insert(8);
-        System.out.println(pq.delMax());
-        System.out.println(pq.delMax());
-        System.out.println(pq.delMax());
-        System.out.println(pq.delMax());
-        System.out.println(pq.delMax());
-        System.out.println(pq.isEmpty());
     }
 }
