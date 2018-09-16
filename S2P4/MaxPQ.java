@@ -1,11 +1,11 @@
 package Algorithms.S2P4;
 
-import javax.swing.*;
-import java.util.PriorityQueue;
+import java.util.Comparator;
 
 public class MaxPQ<key extends Comparable<key>>{
     private key[] pq;
     private int N = 0;
+    private static Comparator comparator;
     private final static int DEFAULT_CAPACITY = 1;
 
     public MaxPQ(int max)
@@ -25,6 +25,12 @@ public class MaxPQ<key extends Comparable<key>>{
             insert(key);
         }
     }
+
+    public MaxPQ(Comparator<key> keyComparator)
+    {
+        comparator = keyComparator;
+    }
+
     public void insert(key v)
     {
         if (N + 1 == pq.length)
@@ -64,6 +70,8 @@ public class MaxPQ<key extends Comparable<key>>{
 
     private boolean less(int i, int j)
     {
+        if (comparator != null)
+            return comparator.compare(pq[i], pq[j]) < 0;
         return pq[i].compareTo(pq[j]) < 0;
     }
 
