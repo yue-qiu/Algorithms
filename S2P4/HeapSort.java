@@ -12,27 +12,48 @@ public class HeapSort {
             sink(pq, 1, N);
         }
     }
-    private static void sink(Comparable[] pq, int k, int n) {
-        while (2 * k <= n) {
-            int j = 2 * k;
-            if (j < n && less(pq, j, j + 1)) {
-                j++;
+
+    private static void sink(Comparable[] a, int i, int j)
+    {
+        while (2 * i <= j)
+        {
+            int k = 2 * i;
+            if (k < j && less(a, k, k+1))
+                k++;
+            if (less(a, i, k))
+            {
+                exch(a, i, k);
+                i = k;
             }
-            if (!less(pq, k, j)) {
+            else
                 break;
-            }
-            exch(pq, k, j);
-            k = j;
         }
-    }
-    private static boolean less(Comparable[] pq, int i, int j) {
-        return pq[i - 1].compareTo(pq[j - 1]) < 0;
     }
 
     private static void exch(Object[] pq, int i, int j) {
         Object swap = pq[i - 1];
         pq[i - 1] = pq[j - 1];
         pq[j - 1] = swap;
+    }
+
+    // 对堆使用
+    private static boolean less(Comparable[] pq, int i, int j) {
+        return pq[i - 1].compareTo(pq[j - 1]) < 0;
+    }
+
+    // 对数组使用
+    private static boolean less(Comparable v, Comparable w)
+    {
+        return v.compareTo(w) < 0;
+    }
+
+    public static boolean isSorted(Comparable[] a)
+    {
+        // 测试数组元素是否有序
+        for (int i = 1; i < a.length; i++)
+            if (less(a[i], a[i-1]))
+                return false;
+        return true;
     }
 
     public static void main(String[] args)
@@ -46,5 +67,6 @@ public class HeapSort {
         sort(test);
         long end = System.currentTimeMillis();
         System.out.printf("10万个元素程序运行时间为：%.4f秒\n", (end - begin) / (double)1000);
+        System.out.println(isSorted(test));
     }
 }
