@@ -54,6 +54,10 @@ public class Merge extends Example{
         int i = low;
         int j = mid + 1;
 
+        // 通过遍历数组的方式并归aux[mid]左右两旁的元素至a
+        // i > mid,即左边为空，取右边元素放入a
+        // j > high,即右边为空，去左边元素放入a
+        // 取aux[i]、aux[j]中较小元素放入a
         for (int k = low; k <= high; k++)
         {
             if (i > mid) a[k] = aux[j++];

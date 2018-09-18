@@ -40,4 +40,18 @@ public class Insertion extends Example{
             for (int j = i; less(a[j], a[j-1]); j--)
                 exch(a, j, j-1);
     }
+
+    public static void main(String[] args)
+    {
+        Integer[] test = new Integer[100000];
+        for (int i = 0; i < test.length; i++)
+            test[i] = (int)(Math.random() * 100);
+
+        System.out.println("准备开始：");
+        long begin = System.currentTimeMillis();
+        sortWithoutExch(test);
+        long end = System.currentTimeMillis();
+        System.out.printf("10万个元素程序运行时间为：%.4f秒\n", (end - begin) / (double)1000);
+        System.out.println(isSorted(test));
+    }
 }
