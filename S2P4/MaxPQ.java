@@ -8,11 +8,13 @@ public class MaxPQ<key extends Comparable<key>>{
     private static Comparator comparator;
     private final static int DEFAULT_CAPACITY = 1;
 
+    @SuppressWarnings("unchecked")
     public MaxPQ(int max)
     {
         pq = (key[]) new Comparable[max+1];
     }
 
+    @SuppressWarnings("unchecked")
     public MaxPQ()
     {
         pq = (key[])new Comparable[DEFAULT_CAPACITY];
@@ -62,12 +64,14 @@ public class MaxPQ<key extends Comparable<key>>{
 
     private void resize(int size)
     {
+        @SuppressWarnings("unchecked")
         key[] temp = (key[]) new Comparable[size];
         for (int i = 1; i <= N; i++)
             temp[i] = pq[i];
         pq = temp;
     }
 
+    @SuppressWarnings("unchecked")
     private boolean less(int i, int j)
     {
         if (comparator != null)
