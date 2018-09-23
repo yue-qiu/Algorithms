@@ -157,17 +157,16 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x == null)
             return 0;
         int cmp = key.compareTo(x.key);
-        if (cmp > 0)
+        if (cmp > 0) // key > x.key，说明要从右子树寻找key结点，此时key结点位置为 左子树结点和 + 1(当前节点) + key在右子树中的位置
             return 1 + size(x.left) + rank(x.right, key);
-        else if (cmp < 0)
+        else if (cmp < 0) // key < x.key，说明要从左子树寻找key结点，此时key结点位置为 key在左子树中的位置
             return rank(x.left, key);
         else
-            return size(x.left);
+            return size(x.left); // key == x.key，x即是key结点，此时key结点位置为 x左子树结点和
     }
     
     public Key select(int k)
     {
-        // 返回排名为k的结点（0为起点）
         return select(root, k);
     }
     
@@ -176,11 +175,11 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x == null)
             return null;
         int t = size(x.left);
-        if (t > k)
+        if (t > k) // t > k，说明 k结点在x的左子树内
             return select(x.left, t);
-        else if (t < k)
+        else if (t < k) // t < k，说明 k结点在x的右子树内，且 k在右子树的位置为 k - 1(当前节点) - t
             return select(x.right, k-t-1);
-        else
+        else // t == k，
             return x.key;
     }
 
@@ -219,6 +218,7 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     private Node delete(Node x, Key key)
     {
+        // 待删除key结点有三种可能：无子结点，1个子结点，2个子结点
         if (x == null)
             return null;
         int cmp = key.compareTo(x.key);
@@ -228,15 +228,18 @@ public class BST<Key extends Comparable<Key>, Value> {
             x.right = delete(x.right, key);
         else
         {
+            // 对应情况1与情况2：左结点为null、右结点为null、均为null
             if (x.right == null)
-                return x.left;
+                return x.left; // 右结点为null，将key的父结点指向左结点
             if (x.left == null)
-                return x.right;
+                return x.right; // 左结点为null，将key的父结点指向右结点
+            // 对应情况3：找出继承结点，用继承结点替换key结点
             Node t = x;
-            x = min(t.right);
-            x.right = deleteMin(t.right);
-            x.left = t.left;
+            x = min(t.right); // 找出继承结点
+            x.right = deleteMin(t.right); // 继承结点覆盖删除最小值后的key右子树
+            x.left = t.left; // 继承结点覆盖key左子树
         }
+        // 重置计数器
         x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
