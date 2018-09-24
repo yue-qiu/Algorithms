@@ -1,6 +1,7 @@
 package Algorithms.S3P2;
 
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.ST;
 
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root; // BST的根结点
@@ -49,6 +50,22 @@ public class BST<Key extends Comparable<Key>, Value> {
             return get(x.right, key);
         else
             return x.value;
+    }
+
+    private Value getWithoutRecursion(Node x, Key key)
+    {
+        if (x == null)
+            return null;
+        while (true)
+        {
+            int cmp = key.compareTo(x.key);
+            if (cmp > 0)
+                x = x.right;
+            else if (cmp < 0)
+                x = x.left;
+            else
+                return x.value;
+        }
     }
 
     public void put(Key key, Value value)
