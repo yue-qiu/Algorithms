@@ -1,5 +1,7 @@
 package Algorithms.S3P2;
 
+import edu.princeton.cs.algs4.Queue;
+
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root; // BST的根结点
 
@@ -242,5 +244,45 @@ public class BST<Key extends Comparable<Key>, Value> {
         // 重置计数器
         x.N = size(x.left) + size(x.right) + 1;
         return x;
+    }
+
+    public void print()
+    {
+        print(root);
+    }
+
+    private void print(Node x)
+    {
+        if (x == null)
+            return;
+        print(x.left); // 遍历根节点左子树
+        System.out.println(x.key); // 打印根节点
+        print(x.right); // 遍历根节点右子树
+    }
+
+    public Iterable<Key> keys()
+    {
+        return keys(min(), max());
+    }
+
+    public Iterable<Key> keys(Key low, Key high)
+    {
+        Queue<Key> queue = new Queue<>();
+        keys(root, queue, low, high);
+        return queue;
+    }
+
+    private void keys(Node x, Queue<Key> queue, Key low, Key high)
+    {
+        if (x == null)
+            return;
+        int cmplo = low.compareTo(x.key);
+        int cmphi = high.compareTo(x.key);
+        if (cmplo < 0) // low 小于x.key，向x左子树递归遍历
+            keys(x.left, queue, low, high);
+        if (cmplo <= 0 && cmphi >= 0) // x.key 落在 low 与 high 之间，将x.key入队
+            queue.enqueue(x.key);
+        if (cmphi > 0) // high 大于x.key，向x右子树递归遍历
+            keys(x.right, queue, low, high);
     }
 }
