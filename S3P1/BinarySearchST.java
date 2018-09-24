@@ -96,10 +96,10 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         if (get(key) == null)
             return;
         int i = rank(key);
-        for (int j = count; j > i; j--)
+        for (int j = i; j < count; j++)
         {
-            keys[j-1] = keys[j];
-            values[j-1] = values[j];
+            keys[j] = keys[j + 1];
+            values[j] = values[j + 1];
         }
         count--;
         if (count == keys.length / 4)
@@ -139,10 +139,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
      */
     public Key floor(Key key)
     {
-        if (keys[0].compareTo(key) == 0)
-            return key;
-
-        return keys[rank(key) - 1];
+        return keys[rank(key)];
     }
 
     /**
@@ -150,10 +147,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
      */
     public Key ceiling(Key key)
     {
-        if (max().compareTo(key) == 0)
-            return key;
-
-        return keys[rank(key) + 1];
+        return keys[rank(key)];
     }
 
     /**
@@ -242,6 +236,10 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         System.out.print("\n");
 
         System.out.println(binarySearchST.ceiling("hello"));
-        System.out.println(binarySearchST.floor("bye"));
+
+        System.out.println(binarySearchST.get("hello"));
+
+        binarySearchST.delete("hello");
+        System.out.println(binarySearchST.get("hello"));
     }
 }
