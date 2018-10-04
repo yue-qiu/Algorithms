@@ -207,6 +207,8 @@ public class RBBST<Key extends Comparable<Key>, Value> {
     public void delete(Key key)
     {
         root = delete(root, key);
+        if (!isEmpty())
+            root.color = BLACK;
     }
 
     private Node delete(Node h, Key key)
@@ -269,5 +271,10 @@ public class RBBST<Key extends Comparable<Key>, Value> {
         if (h.left == null)
             return h.key;
         return min(h.left);
+    }
+
+    private boolean isEmpty()
+    {
+        return root.N == 0;
     }
 }
