@@ -64,6 +64,7 @@ public class Quick extends Example{
         sort3ways(a, gt + 1, high);
 
     }
+
     private static int partition(Comparable[] a, int low, int high)
     {
         // 将数组切分为a[low..i-1]，a[i]，a[i+1..high]
@@ -72,12 +73,8 @@ public class Quick extends Example{
         while (true)
         {
             // 扫描左右，检查扫描是否结束并交换
-            while (less(a[++i], v))
-                if (i == high)
-                    break;
-            while (less(v, a[--j]))
-                if (j == low)
-                    break;
+            while (less(a[++i], v) && i != high) ;
+            while (less(v, a[--j]) && j != low) ;
             if (i >= j)
                 break;
             exch(a, i, j);
