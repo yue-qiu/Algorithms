@@ -63,6 +63,7 @@ class MyQueue<Item> implements Iterable<Item>
         last = new Node();
         last.item = item;
         last.next = null;
+        // 如果是空queue，first与last指向同一个结点
         if (this.isEmpty())
             first = last;
         else
@@ -73,7 +74,9 @@ class MyQueue<Item> implements Iterable<Item>
     public Item dequeue()
     {
         Node oldfirst = first;
+        // first置为下一结点，如果queue只有一个结点first被置为null
         first = first.next;
+        // 如果queue只有一个节点，需要将last置null
         if (this.isEmpty()) last = null;
         N--;
         return oldfirst.item;
