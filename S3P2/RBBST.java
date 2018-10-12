@@ -229,7 +229,7 @@ public class RBBST<Key extends Comparable<Key>, Value> {
             // 将红链接转到右侧
             if (isRed(h.left))
                 h = rotateRight(h);
-            // 在树的底部相等，直接删除
+            // 在树的底部相等，不需要担心删除这个节点之后子节点的问题。直接删除
             if (cmp == 0 && (h.right == null))
                 return null;
             // h.right 不是 2-node，需要借结点
