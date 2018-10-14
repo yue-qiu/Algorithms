@@ -166,27 +166,21 @@ class MyLinkList<Item> implements Iterable<Item>
 
     public Iterator<Item> iterator()
     {
-        return new MyIterator();
-    }
+        return new Iterator<Item>() {
+            private  Node cur = first;
 
-    private class MyIterator implements Iterator<Item>
-    {
-        // current保存当前首节点
-        private Node current = first;
+            @Override
+            public boolean hasNext() {
+                // 迭代器位于相邻两元素之间，如：A -迭代器-> B，此时current指向B，通过判断current是否非空检测判断是否有下一个元素
+                return cur != null;
+            }
 
-        public boolean hasNext()
-        {
-            // 迭代器位于相邻两元素之间，如：A -迭代器-> B，此时current指向B，通过判断current是否非空检测判断是否有下一个元素
-            return current != null;
-        }
-
-        public Item next()
-        {
-            Item item = current.item;
-            current = current.next;
-            return item;
-        }
-
-        public void remove() {}
+            @Override
+            public Item next() {
+                Item item = cur.item;
+                cur = cur.next;
+                return item;
+            }
+        };
     }
 }
