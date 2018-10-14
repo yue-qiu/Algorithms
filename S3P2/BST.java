@@ -1,6 +1,7 @@
 package Algorithms.S3P2;
 
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stack;
 
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root; // BST的根结点
@@ -138,7 +139,6 @@ public class BST<Key extends Comparable<Key>, Value> {
             return x;
     }
 
-
     public Key floor(Key key)
     {
         Node x = floor(root, key);
@@ -264,16 +264,123 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     public void print()
     {
-        print(root);
+        printLMR(root);
     }
 
-    private void print(Node x)
+    /**
+     * 中序遍历, 左根右
+     * @param x 根节点
+     */
+    private void printLMR(Node x)
     {
         if (x == null)
             return;
-        print(x.left); // 遍历根节点左子树
+        printLMR(x.left); // 遍历根节点左子树
         System.out.println(x.key); // 打印根节点
-        print(x.right); // 遍历根节点右子树
+        printLMR(x.right); // 遍历根节点右子树
+    }
+
+    /**
+     * 非递归中序遍历
+     */
+    private void printLMRWithoutRecursion()
+    {
+        Stack<Node> nodeStack = new Stack<>();
+        Node cur = root;
+        // cur 为 null 且栈为空标志着遍历结束
+        while (cur != null || !nodeStack.isEmpty())
+        {
+            if (cur != null)
+            {
+                nodeStack.push(cur);
+                cur = cur.left;
+            }
+            else
+            {
+                cur = nodeStack.pop();
+                // 在出栈时打印，实现中序遍历的效果
+                System.out.println(cur.key);
+                cur = cur.right;
+            }
+        }
+    }
+
+    /**
+     * 先序遍历, 根左右
+     * @param x 根节点
+     */
+    private void printMLR(Node x)
+    {
+        if (x == null)
+            return;
+        System.out.println(x.key);
+        printMLR(x.left);
+        printMLR(x.right);
+    }
+
+    /**
+     * 非递归先序遍历
+     */
+    private void printMLRWithoutRecursion()
+    {
+        Stack<Node> nodeStack = new Stack<>();
+        Node cur = root;
+        // cur 为 null 且栈为空标志着遍历结束
+        while (cur != null || !nodeStack.isEmpty() )
+        {
+            if (cur != null)
+            {
+                // 遍历过程中立即打印，实现先序遍历效果
+                System.out.println(cur.key);
+                nodeStack.push(cur);
+                cur = cur.left;
+            }
+            else
+            {
+                cur = nodeStack.pop();
+                cur = cur.right;
+            }
+        }
+    }
+
+    /**
+     * 后序遍历, 左右根
+     * @param x 根节点
+     */
+    private void printLRM(Node x)
+    {
+        if (x == null)
+            return;
+        printLRM(x.left);
+        printLRM(x.right);
+    }
+
+    /**
+     * 非递归后序遍历
+     */
+    private void printLRMWithoutRecursion()
+    {
+        Stack<Node> nodeStack = new Stack<>();
+        Node cur = root;
+        Node lastVisit = root; // 记录上一个已打印结点
+        while (cur != null || !nodeStack.isEmpty())
+        {
+            nodeStack.push(cur);
+            cur = cur.left;
+        }
+
+        cur = nodeStack.peek();
+        // 当右结点为 null 或 右结点等于上一个已遍历结点，意味着左右都已完成遍历，可以打印当前结点
+        if (cur.right == null || cur.right == lastVisit)
+        {
+            System.out.println(cur.key);
+            nodeStack.pop();
+            // lastVisit 设为当前结点，cur 设为 null 下一轮就可以访问栈顶元素
+            lastVisit = cur;
+            cur = null;
+        }
+        else
+            cur = cur.right;
     }
 
     public Iterable<Key> keys()
