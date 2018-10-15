@@ -4,14 +4,15 @@ import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.Stack;
 
 public class BST<Key extends Comparable<Key>, Value> {
-    private Node root; // BSTµÄ¸ù½áµã
+    private Node root; // BSTçš„æ ¹ç»“ç‚¹
 
+    // ä¸­åºéå†äºŒå‰æ ‘ï¼Œå¾—åˆ°ä¸€ä¸ªé€’å¢åºåˆ—
     private class Node
     {
-        private Key key; //¼ü
-        private Value value; //Öµ
-        private int N; // ÒÔ¸Ã½áµãÎª¸ùµÄ×ÓÊ÷ÖĞµÄ½áµã×ÜÊı¡£×÷ÓÃÀàËÆÓÚÊı×éÏÂ±ê£º½áµãÔÚÊ÷ÖĞµÄÅÅÃû¾ÍÊÇÆä×ó½áµãµÄNÖµ
-        private Node left, right; // ×óÓÒ½áµã
+        private Key key; //é”®
+        private Value value; //å€¼
+        private int N; // ä»¥è¯¥ç»“ç‚¹ä¸ºæ ¹çš„å­æ ‘ä¸­çš„ç»“ç‚¹æ€»æ•°ã€‚ä½œç”¨ç±»ä¼¼äºæ•°ç»„ä¸‹æ ‡
+        private Node left, right; // å·¦å³ç»“ç‚¹
 
         public Node(Key key, Value value, int N)
         {
@@ -70,24 +71,24 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     public void put(Key key, Value value)
     {
-        // ²éÕÒkey£¬ÕÒµ½Ôò¸üĞÂËüµÄÖµ£¬·ñÔòÎªËü´´½¨Ò»¸öĞÂµÄ½áµã
+        // æŸ¥æ‰¾keyï¼Œæ‰¾åˆ°åˆ™æ›´æ–°å®ƒçš„å€¼ï¼Œå¦åˆ™ä¸ºå®ƒåˆ›å»ºä¸€ä¸ªæ–°çš„ç»“ç‚¹
         root = put(root, key, value);
     }
 
     private Node put(Node x, Key key, Value value)
     {
-        // Èç¹ûkey´æÔÚÓÚÒÔxÎª¸ù½áµãµÄ×ÓÊ÷ÖĞÔò¸üĞÂËüµÄÖµ
-        // ·ñÔò½«ÒÔkeyºÍvalueÎª¼üÖµ¶ÔµÄĞÂ½áµã²åÈëµ½¸Ã×ÓÊ÷ÖĞ
+        // å¦‚æœkeyå­˜åœ¨äºä»¥xä¸ºæ ¹ç»“ç‚¹çš„å­æ ‘ä¸­åˆ™æ›´æ–°å®ƒçš„å€¼
+        // å¦åˆ™å°†ä»¥keyå’Œvalueä¸ºé”®å€¼å¯¹çš„æ–°ç»“ç‚¹æ’å…¥åˆ°è¯¥å­æ ‘ä¸­
         if (x == null)
             return new Node(key, value, 1);
         int cmp = key.compareTo(x.key);
         if (cmp < 0)
-            x.left = put(x.left, key, value); // keyĞ¡ÓÚ½áµã£¬¸üĞÂ×ó×Ó½áµã
+            x.left = put(x.left, key, value); // keyå°äºç»“ç‚¹ï¼Œæ›´æ–°å·¦å­ç»“ç‚¹
         else if (cmp > 0)
-            x.right = put(x.right, key, value); // key´óÓÚ½áµã£¬¸üĞÂÓÒ×Ó½áµã
+            x.right = put(x.right, key, value); // keyå¤§äºç»“ç‚¹ï¼Œæ›´æ–°å³å­ç»“ç‚¹
         else
-            x.value = value; // keyµÈÓÚ½áµã£¬¸üĞÂ½áµãvalue
-        x.N = size(x.left) + size(x.right) + 1; // ¸üĞÂ¼ÆÊıÆ÷
+            x.value = value; // keyç­‰äºç»“ç‚¹ï¼Œæ›´æ–°ç»“ç‚¹value
+        x.N = size(x.left) + size(x.right) + 1; // æ›´æ–°è®¡æ•°å™¨
         return x;
     }
 
@@ -166,7 +167,7 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     public int rank(Key key)
     {
-        // ·µ»ØÒÔxÎª¸ù½áµãµÄ×ÓÊ÷ÖĞĞ¡ÓÚx.keyµÄ¼üµÄÊıÁ¿
+        // è¿”å›ä»¥xä¸ºæ ¹ç»“ç‚¹çš„å­æ ‘ä¸­å°äºx.keyçš„é”®çš„æ•°é‡
         return rank(root, key);
     }
 
@@ -175,12 +176,12 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x == null)
             return 0;
         int cmp = key.compareTo(x.key);
-        if (cmp > 0) // key > x.key£¬ËµÃ÷Òª´ÓÓÒ×ÓÊ÷Ñ°ÕÒkey½áµã£¬´ËÊ±key½áµãÎ»ÖÃÎª ×ó×ÓÊ÷½áµãºÍ + 1(µ±Ç°½Úµã) + keyÔÚÓÒ×ÓÊ÷ÖĞµÄÎ»ÖÃ
+        if (cmp > 0) // key > x.keyï¼Œè¯´æ˜è¦ä»å³å­æ ‘å¯»æ‰¾keyç»“ç‚¹ï¼Œæ­¤æ—¶keyç»“ç‚¹ä½ç½®ä¸º å·¦å­æ ‘ç»“ç‚¹å’Œ + 1(å½“å‰èŠ‚ç‚¹) + keyåœ¨å³å­æ ‘ä¸­çš„ä½ç½®
             return 1 + size(x.left) + rank(x.right, key);
-        else if (cmp < 0) // key < x.key£¬ËµÃ÷Òª´Ó×ó×ÓÊ÷Ñ°ÕÒkey½áµã£¬´ËÊ±key½áµãÎ»ÖÃÎª keyÔÚ×ó×ÓÊ÷ÖĞµÄÎ»ÖÃ
+        else if (cmp < 0) // key < x.keyï¼Œè¯´æ˜è¦ä»å·¦å­æ ‘å¯»æ‰¾keyç»“ç‚¹ï¼Œæ­¤æ—¶keyç»“ç‚¹ä½ç½®ä¸º keyåœ¨å·¦å­æ ‘ä¸­çš„ä½ç½®
             return rank(x.left, key);
         else
-            return size(x.left); // key == x.key£¬x¼´ÊÇkey½áµã£¬´ËÊ±key½áµãÎ»ÖÃÎª x×ó×ÓÊ÷½áµãºÍ
+            return size(x.left); // key == x.keyï¼Œxå³æ˜¯keyç»“ç‚¹ï¼Œæ­¤æ—¶keyç»“ç‚¹ä½ç½®ä¸º xå·¦å­æ ‘ç»“ç‚¹å’Œ
     }
     
     public Key select(int k)
@@ -193,11 +194,11 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x == null)
             return null;
         int t = size(x.left);
-        if (t > k) // t > k£¬ËµÃ÷ k½áµãÔÚxµÄ×ó×ÓÊ÷ÄÚ
+        if (t > k) // t > kï¼Œè¯´æ˜ kç»“ç‚¹åœ¨xçš„å·¦å­æ ‘å†…
             return select(x.left, t);
-        else if (t < k) // t < k£¬ËµÃ÷ k½áµãÔÚxµÄÓÒ×ÓÊ÷ÄÚ£¬ÇÒ kÔÚÓÒ×ÓÊ÷µÄÎ»ÖÃÎª k - 1(µ±Ç°½Úµã) - t
+        else if (t < k) // t < kï¼Œè¯´æ˜ kç»“ç‚¹åœ¨xçš„å³å­æ ‘å†…ï¼Œä¸” kåœ¨å³å­æ ‘çš„ä½ç½®ä¸º k - 1(å½“å‰èŠ‚ç‚¹) - t
             return select(x.right, k-t-1);
-        else // t == k£¬
+        else // t == kï¼Œ
             return x.key;
     }
 
@@ -236,7 +237,7 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     private Node delete(Node x, Key key)
     {
-        // ´ıÉ¾³ıkey½áµãÓĞÈıÖÖ¿ÉÄÜ£ºÎŞ×Ó½áµã£¬1¸ö×Ó½áµã£¬2¸ö×Ó½áµã
+        // å¾…åˆ é™¤keyç»“ç‚¹æœ‰ä¸‰ç§å¯èƒ½ï¼šæ— å­ç»“ç‚¹ï¼Œ1ä¸ªå­ç»“ç‚¹ï¼Œ2ä¸ªå­ç»“ç‚¹
         if (x == null)
             return null;
         int cmp = key.compareTo(x.key);
@@ -246,18 +247,18 @@ public class BST<Key extends Comparable<Key>, Value> {
             x.right = delete(x.right, key);
         else
         {
-            // ¶ÔÓ¦Çé¿ö1ÓëÇé¿ö2£º×ó½áµãÎªnull¡¢ÓÒ½áµãÎªnull¡¢¾ùÎªnull
+            // å¯¹åº”æƒ…å†µ1ä¸æƒ…å†µ2ï¼šå·¦ç»“ç‚¹ä¸ºnullã€å³ç»“ç‚¹ä¸ºnullã€å‡ä¸ºnull
             if (x.right == null)
-                return x.left; // ÓÒ½áµãÎªnull£¬½«keyµÄ¸¸½áµãÖ¸Ïò×ó½áµã
+                return x.left; // å³ç»“ç‚¹ä¸ºnullï¼Œå°†keyçš„çˆ¶ç»“ç‚¹æŒ‡å‘å·¦ç»“ç‚¹
             if (x.left == null)
-                return x.right; // ×ó½áµãÎªnull£¬½«keyµÄ¸¸½áµãÖ¸ÏòÓÒ½áµã
-            // ¶ÔÓ¦Çé¿ö3£ºÕÒ³ö¼Ì³Ğ½áµã£¬ÓÃ¼Ì³Ğ½áµãÌæ»»key½áµã
+                return x.right; // å·¦ç»“ç‚¹ä¸ºnullï¼Œå°†keyçš„çˆ¶ç»“ç‚¹æŒ‡å‘å³ç»“ç‚¹
+            // å¯¹åº”æƒ…å†µ3ï¼šæ‰¾å‡ºç»§æ‰¿ç»“ç‚¹ï¼Œç”¨ç»§æ‰¿ç»“ç‚¹æ›¿æ¢keyç»“ç‚¹
             Node t = x;
-            x = min(t.right); // ÕÒ³ö¼Ì³Ğ½áµã
-            x.right = deleteMin(t.right); // ¼Ì³Ğ½áµã¸²¸ÇÉ¾³ı×îĞ¡ÖµºóµÄkeyÓÒ×ÓÊ÷
-            x.left = t.left; // ¼Ì³Ğ½áµã¸²¸Çkey×ó×ÓÊ÷
+            x = min(t.right); // æ‰¾å‡ºç»§æ‰¿ç»“ç‚¹
+            x.right = deleteMin(t.right); // ç»§æ‰¿ç»“ç‚¹è¦†ç›–åˆ é™¤æœ€å°å€¼åçš„keyå³å­æ ‘
+            x.left = t.left; // ç»§æ‰¿ç»“ç‚¹è¦†ç›–keyå·¦å­æ ‘
         }
-        // ÖØÖÃ¼ÆÊıÆ÷
+        // é‡ç½®è®¡æ•°å™¨
         x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
@@ -268,26 +269,26 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * ÖĞĞò±éÀú, ×ó¸ùÓÒ
-     * @param x ¸ù½Úµã
+     * ä¸­åºéå†, å·¦æ ¹å³
+     * @param x æ ¹èŠ‚ç‚¹
      */
     private void printLMR(Node x)
     {
         if (x == null)
             return;
-        printLMR(x.left); // ±éÀú¸ù½Úµã×ó×ÓÊ÷
-        System.out.println(x.key); // ´òÓ¡¸ù½Úµã
-        printLMR(x.right); // ±éÀú¸ù½ÚµãÓÒ×ÓÊ÷
+        printLMR(x.left); // éå†æ ¹èŠ‚ç‚¹å·¦å­æ ‘
+        System.out.println(x.key); // æ‰“å°æ ¹èŠ‚ç‚¹
+        printLMR(x.right); // éå†æ ¹èŠ‚ç‚¹å³å­æ ‘
     }
 
     /**
-     * ·Çµİ¹éÖĞĞò±éÀú
+     * éé€’å½’ä¸­åºéå†
      */
     private void printLMRWithoutRecursion()
     {
         Stack<Node> nodeStack = new Stack<>();
         Node cur = root;
-        // cur Îª null ÇÒÕ»Îª¿Õ±êÖ¾×Å±éÀú½áÊø
+        // cur ä¸º null ä¸”æ ˆä¸ºç©ºæ ‡å¿—ç€éå†ç»“æŸ
         while (cur != null || !nodeStack.isEmpty())
         {
             if (cur != null)
@@ -298,7 +299,7 @@ public class BST<Key extends Comparable<Key>, Value> {
             else
             {
                 cur = nodeStack.pop();
-                // ÔÚ³öÕ»Ê±´òÓ¡£¬ÊµÏÖÖĞĞò±éÀúµÄĞ§¹û
+                // åœ¨å‡ºæ ˆæ—¶æ‰“å°ï¼Œå®ç°ä¸­åºéå†çš„æ•ˆæœ
                 System.out.println(cur.key);
                 cur = cur.right;
             }
@@ -306,8 +307,8 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * ÏÈĞò±éÀú, ¸ù×óÓÒ
-     * @param x ¸ù½Úµã
+     * å…ˆåºéå†, æ ¹å·¦å³
+     * @param x æ ¹èŠ‚ç‚¹
      */
     private void printMLR(Node x)
     {
@@ -319,18 +320,18 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * ·Çµİ¹éÏÈĞò±éÀú
+     * éé€’å½’å…ˆåºéå†
      */
     private void printMLRWithoutRecursion()
     {
         Stack<Node> nodeStack = new Stack<>();
         Node cur = root;
-        // cur Îª null ÇÒÕ»Îª¿Õ±êÖ¾×Å±éÀú½áÊø
+        // cur ä¸º null ä¸”æ ˆä¸ºç©ºæ ‡å¿—ç€éå†ç»“æŸ
         while (cur != null || !nodeStack.isEmpty() )
         {
             if (cur != null)
             {
-                // ±éÀú¹ı³ÌÖĞÁ¢¼´´òÓ¡£¬ÊµÏÖÏÈĞò±éÀúĞ§¹û
+                // éå†è¿‡ç¨‹ä¸­ç«‹å³æ‰“å°ï¼Œå®ç°å…ˆåºéå†æ•ˆæœ
                 System.out.println(cur.key);
                 nodeStack.push(cur);
                 cur = cur.left;
@@ -344,8 +345,8 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * ºóĞò±éÀú, ×óÓÒ¸ù
-     * @param x ¸ù½Úµã
+     * ååºéå†, å·¦å³æ ¹
+     * @param x æ ¹èŠ‚ç‚¹
      */
     private void printLRM(Node x)
     {
@@ -356,13 +357,13 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * ·Çµİ¹éºóĞò±éÀú
+     * éé€’å½’ååºéå†
      */
     private void printLRMWithoutRecursion()
     {
         Stack<Node> nodeStack = new Stack<>();
         Node cur = root;
-        Node lastVisit = root; // ¼ÇÂ¼ÉÏÒ»¸öÒÑ´òÓ¡½áµã
+        Node lastVisit = root; // è®°å½•ä¸Šä¸€ä¸ªå·²æ‰“å°ç»“ç‚¹
         while (cur != null || !nodeStack.isEmpty())
         {
             nodeStack.push(cur);
@@ -370,12 +371,12 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
 
         cur = nodeStack.peek();
-        // µ±ÓÒ½áµãÎª null »ò ÓÒ½áµãµÈÓÚÉÏÒ»¸öÒÑ±éÀú½áµã£¬ÒâÎ¶×Å×óÓÒ¶¼ÒÑÍê³É±éÀú£¬¿ÉÒÔ´òÓ¡µ±Ç°½áµã
+        // å½“å³ç»“ç‚¹ä¸º null æˆ– å³ç»“ç‚¹ç­‰äºä¸Šä¸€ä¸ªå·²éå†ç»“ç‚¹ï¼Œæ„å‘³ç€å·¦å³éƒ½å·²å®Œæˆéå†ï¼Œå¯ä»¥æ‰“å°å½“å‰ç»“ç‚¹
         if (cur.right == null || cur.right == lastVisit)
         {
             System.out.println(cur.key);
             nodeStack.pop();
-            // lastVisit ÉèÎªµ±Ç°½áµã£¬cur ÉèÎª null ÏÂÒ»ÂÖ¾Í¿ÉÒÔ·ÃÎÊÕ»¶¥ÔªËØ
+            // lastVisit è®¾ä¸ºå½“å‰ç»“ç‚¹ï¼Œcur è®¾ä¸º null ä¸‹ä¸€è½®å°±å¯ä»¥è®¿é—®æ ˆé¡¶å…ƒç´ 
             lastVisit = cur;
             cur = null;
         }
@@ -401,11 +402,11 @@ public class BST<Key extends Comparable<Key>, Value> {
             return;
         int cmplo = low.compareTo(x.key);
         int cmphi = high.compareTo(x.key);
-        if (cmplo < 0) // low Ğ¡ÓÚx.key£¬Ïòx×ó×ÓÊ÷µİ¹é±éÀú
+        if (cmplo < 0) // low å°äºx.keyï¼Œå‘xå·¦å­æ ‘é€’å½’éå†
             keys(x.left, queue, low, high);
-        if (cmplo <= 0 && cmphi >= 0) // x.key ÂäÔÚ low Óë high Ö®¼ä£¬½«x.keyÈë¶Ó
+        if (cmplo <= 0 && cmphi >= 0) // x.key è½åœ¨ low ä¸ high ä¹‹é—´ï¼Œå°†x.keyå…¥é˜Ÿ
             queue.enqueue(x.key);
-        if (cmphi > 0) // high ´óÓÚx.key£¬ÏòxÓÒ×ÓÊ÷µİ¹é±éÀú
+        if (cmphi > 0) // high å¤§äºx.keyï¼Œå‘xå³å­æ ‘é€’å½’éå†
             keys(x.right, queue, low, high);
     }
 }

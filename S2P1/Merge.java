@@ -1,33 +1,33 @@
 package Algorithms.S2P1;
 
 /**
- * ²¢¹éÅÅĞò£¬¸´ÔÓ¶ÈÎª NlgN ¡£ÊÊºÏ´óÊı×é
+ * å¹¶å½’æ’åºï¼Œå¤æ‚åº¦ä¸º NlgN ã€‚é€‚åˆå¤§æ•°ç»„
  */
 public class Merge extends Example{
-//    private static Comparable[] aux; ²»°²È«
+//    private static Comparable[] aux; ä¸å®‰å…¨
 
     public static void sort(Comparable[] a)
     {
-        // ¶à¸ö¶ÔÏó»á¹²ÓÃÒ»¸ö¾²Ì¬±äÁ¿£¬ÔÚ¶à¸ö³ÌĞòÍ¬Ê±ÔËĞĞÊ±±äÁ¿aux²»°²È«£¬¸ÄÎª½«¸¨ÖúÊı×é×÷Îª²ÎÊı´«µİ
+        // å¤šä¸ªå¯¹è±¡ä¼šå…±ç”¨ä¸€ä¸ªé™æ€å˜é‡ï¼Œåœ¨å¤šä¸ªç¨‹åºåŒæ—¶è¿è¡Œæ—¶å˜é‡auxä¸å®‰å…¨ï¼Œæ”¹ä¸ºå°†è¾…åŠ©æ•°ç»„ä½œä¸ºå‚æ•°ä¼ é€’
         Comparable[] aux = new Comparable[a.length];
         sort(a, aux, 0, a.length - 1);
     }
 
     private static void sort(Comparable[] a, Comparable[] aux, int low, int high)
     {
-        // ½«Êı×éa[low..high]ÅÅĞò
+        // å°†æ•°ç»„a[low..high]æ’åº
         if (high <= low)
             return;
         else if ((high - low) < 15)
-            // Ğ¡Êı×éÓÃ²åÈëÅÅĞò£¬¼õÉÙµİ¹é£¨Ìá¸ß²¢¹éĞ§ÂÊ£©
+            // å°æ•°ç»„ç”¨æ’å…¥æ’åºï¼Œå‡å°‘é€’å½’ï¼ˆæé«˜å¹¶å½’æ•ˆç‡ï¼‰
             sortWithInsertion(a, low, high);
         else {
             int mid = low + (high - low) / 2;
-            sort(a, aux, low, mid); // ½«Êı×é×ó°ë±ßÅÅĞò
-            sort(a, aux, mid + 1, high); // ½«Êı×éÓÒ°ë±ßÅÅĞò
-            // Èç¹ûa[mid]Ğ¡ÓÚa[mid+1]Ôò¸Ãa[low..high]ÒÑ¾­ÅÅĞòÍê±Ï£¬²»ĞèÒªmerge£¨Ìá¸ß²¢¹éĞ§ÂÊ£©
+            sort(a, aux, low, mid); // å°†æ•°ç»„å·¦åŠè¾¹æ’åº
+            sort(a, aux, mid + 1, high); // å°†æ•°ç»„å³åŠè¾¹æ’åº
+            // å¦‚æœa[mid]å°äºa[mid+1]åˆ™è¯¥a[low..high]å·²ç»æ’åºå®Œæ¯•ï¼Œä¸éœ€è¦mergeï¼ˆæé«˜å¹¶å½’æ•ˆç‡ï¼‰
             if (less(a[mid + 1], a[mid]))
-                merge(a, aux, low, mid, high); // ¹é²¢½á¹û
+                merge(a, aux, low, mid, high); // å½’å¹¶ç»“æœ
         }
     }
 
@@ -39,11 +39,11 @@ public class Merge extends Example{
     }
 
     /**
-     * mergeÖ»ÊÇ½«Êı×éµÄÁ½¸ö×Ó×é½øĞĞºÏ²¢£¬±¾Éí²¢²»Æğµ½ÅÅĞòµÄ×÷ÓÃ¡£¶øµ±ÒªºÏ²¢µÄ×Ó×éÓĞĞòÊ±£¬merge¿ÉÒÔÈ·±£ºÏ²¢ºóµÄÊı×éÒ²ÊÇÓĞĞòµÄ
-     * @param a ´ıºÏ²¢Êı×é
-     * @param low Í·²¿Ë÷Òı
-     * @param mid ÖĞ²¿Ë÷Òı
-     * @param high Î²²¿Ë÷Òı
+     * mergeåªæ˜¯å°†æ•°ç»„çš„ä¸¤ä¸ªå­ç»„è¿›è¡Œåˆå¹¶ï¼Œæœ¬èº«å¹¶ä¸èµ·åˆ°æ’åºçš„ä½œç”¨ã€‚è€Œå½“è¦åˆå¹¶çš„å­ç»„æœ‰åºæ—¶ï¼Œmergeå¯ä»¥ç¡®ä¿åˆå¹¶åçš„æ•°ç»„ä¹Ÿæ˜¯æœ‰åºçš„
+     * @param a å¾…åˆå¹¶æ•°ç»„
+     * @param low å¤´éƒ¨ç´¢å¼•
+     * @param mid ä¸­éƒ¨ç´¢å¼•
+     * @param high å°¾éƒ¨ç´¢å¼•
      */
     protected static void merge(Comparable[] a, Comparable[] aux, int low, int mid, int high)
     {
@@ -54,10 +54,10 @@ public class Merge extends Example{
         int i = low;
         int j = mid + 1;
 
-        // Í¨¹ı±éÀúÊı×éµÄ·½Ê½²¢¹éaux[mid]×óÓÒÁ½ÅÔµÄÔªËØÖÁa
-        // i > mid,¼´×ó±ßÎª¿Õ£¬È¡ÓÒ±ßÔªËØ·ÅÈëa
-        // j > high,¼´ÓÒ±ßÎª¿Õ£¬È¥×ó±ßÔªËØ·ÅÈëa
-        // È¡aux[i]¡¢aux[j]ÖĞ½ÏĞ¡ÔªËØ·ÅÈëa
+        // é€šè¿‡éå†æ•°ç»„çš„æ–¹å¼å¹¶å½’aux[mid]å·¦å³ä¸¤æ—çš„å…ƒç´ è‡³a
+        // i > mid,å³å·¦è¾¹ä¸ºç©ºï¼Œå–å³è¾¹å…ƒç´ æ”¾å…¥a
+        // j > high,å³å³è¾¹ä¸ºç©ºï¼Œå»å·¦è¾¹å…ƒç´ æ”¾å…¥a
+        // å–aux[i]ã€aux[j]ä¸­è¾ƒå°å…ƒç´ æ”¾å…¥a
         for (int k = low; k <= high; k++)
         {
             if (i > mid) a[k] = aux[j++];
@@ -73,11 +73,11 @@ public class Merge extends Example{
         for (int i = 0; i < test.length; i++)
             test[i] = (int)(Math.random() * 100);
 
-        System.out.println("×¼±¸¿ªÊ¼£º");
+        System.out.println("å‡†å¤‡å¼€å§‹ï¼š");
         long begin = System.currentTimeMillis();
         sort(test);
         long end = System.currentTimeMillis();
-        System.out.printf("10Íò¸öÔªËØ³ÌĞòÔËĞĞÊ±¼äÎª£º%.4fÃë\n", (end - begin) / (double)1000);
+        System.out.printf("10ä¸‡ä¸ªå…ƒç´ ç¨‹åºè¿è¡Œæ—¶é—´ä¸ºï¼š%.4fç§’\n", (end - begin) / (double)1000);
         System.out.println(isSorted(test));
     }
 }

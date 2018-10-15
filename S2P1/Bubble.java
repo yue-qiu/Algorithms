@@ -14,9 +14,9 @@ public class Bubble extends Example{
     }
 
     /**
-     * ¸Ä½øÃ°ÅÝ£¬Êý×é´ó²¿·ÖÓÐÐòÇé¿öÏÂÄÜ¼õÉÙ±È½Ï´ÎÊý
-     * Ã¿ÌËÅÅÐòÉèÖÃÒ»¸öflag£¬Èç¹ûÒ»ÌËÅÅÐòÏÂÀ´·¢ÏÖÃ»ÓÐ·¢Éú½»»»ÔòÈÏÎªÕâ¸öÊý×éÒÑ¾­ÊÇÓÐÐòµÄ£¬ÎÞÐè¼ÌÐø±È½ÏÁË
-     * @param a ´ýÅÅÐòÊý×é
+     * æ”¹è¿›å†’æ³¡ï¼Œæ•°ç»„å¤§éƒ¨åˆ†æœ‰åºæƒ…å†µä¸‹èƒ½å‡å°‘æ¯”è¾ƒæ¬¡æ•°
+     * æ¯è¶ŸæŽ’åºè®¾ç½®ä¸€ä¸ªflagï¼Œå¦‚æžœä¸€è¶ŸæŽ’åºä¸‹æ¥å‘çŽ°æ²¡æœ‰å‘ç”Ÿäº¤æ¢åˆ™è®¤ä¸ºè¿™ä¸ªæ•°ç»„å·²ç»æ˜¯æœ‰åºçš„ï¼Œæ— éœ€ç»§ç»­æ¯”è¾ƒäº†
+     * @param a å¾…æŽ’åºæ•°ç»„
      */
     public static void flagSort(Comparable[] a)
     {

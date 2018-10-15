@@ -65,8 +65,8 @@ public class RBBST<Key extends Comparable<Key>, Value> {
         if (x == null)
             return new Node(key, value, RED, 1);
         /*
-        ½«Õâ¶Î´úÂë·Åµ½Õâ¿ÉÒÔĞ§ÂÊ£¬ÒòÎªÕâÑùÃ¿´ÎÖ»¶Ô¼¸¸ö½áµã½øĞĞ²Ù×÷
-        ÕâÑù¾ÍÊÇ 2-3-4 Ê÷
+        å°†è¿™æ®µä»£ç æ”¾åˆ°è¿™å¯ä»¥æ•ˆç‡ï¼Œå› ä¸ºè¿™æ ·æ¯æ¬¡åªå¯¹å‡ ä¸ªç»“ç‚¹è¿›è¡Œæ“ä½œ
+        è¿™æ ·å°±æ˜¯ 2-3-4 æ ‘
         if (isRED(x.left) && isRED(x.right))
             filpColors(x);
         * */
@@ -78,14 +78,14 @@ public class RBBST<Key extends Comparable<Key>, Value> {
         else
             x.value = value;
 
-        // µ÷ÕûÊ÷µÄ½á¹¹£¬ĞŞÕıÓÒÇã¡¢·Ö½â 4-½áµã
+        // è°ƒæ•´æ ‘çš„ç»“æ„ï¼Œä¿®æ­£å³å€¾ã€åˆ†è§£ 4-ç»“ç‚¹
 
-        if (isRed(x.right) && !isRed(x.left)) // ºìÁ´½ÓÔÚÓÒ
+        if (isRed(x.right) && !isRed(x.left)) // çº¢é“¾æ¥åœ¨å³
             x = rotateLeft(x);
-        if (isRed(x.left) && isRed(x.left.left)) // Á½¸öºìÁ´½ÓÏàÁ¬
+        if (isRed(x.left) && isRed(x.left.left)) // ä¸¤ä¸ªçº¢é“¾æ¥ç›¸è¿
             x = rotateRight(x);
-        // ÇĞ·Ö 4-node£¬ÓÉÓÚÃ¿´ÎÔÚ×îºó¶¼½«ÁÙÊ±¹¹ÔìµÄ 4-node ½áµãÇĞ·Ö£¬Ò²¾Í±ä³ÉÁË 2-3 Ê÷
-        if (isRed(x.left) && isRed(x.right)) // ×óÓÒÁ´½Ó¾ùÎªºìÁ´½Ó£¬¼´Ò»¸ö 4-node ½áµã
+        // åˆ‡åˆ† 4-nodeï¼Œç”±äºæ¯æ¬¡åœ¨æœ€åéƒ½å°†ä¸´æ—¶æ„é€ çš„ 4-node ç»“ç‚¹åˆ‡åˆ†ï¼Œä¹Ÿå°±å˜æˆäº† 2-3 æ ‘
+        if (isRed(x.left) && isRed(x.right)) // å·¦å³é“¾æ¥å‡ä¸ºçº¢é“¾æ¥ï¼Œå³ä¸€ä¸ª 4-node ç»“ç‚¹
             filpColors(x);
 
         x.N = 1 + size(x.left) + size(x.right);
@@ -100,9 +100,9 @@ public class RBBST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * ×óĞı×ª½áµã h µÄºìÉ«ÓÒÁ´½Ó
-     * @param h ºìÉ«ÓÒÁ´½ÓµÄ½áµã
-     * @return ºìÉ«Á´½ÓĞı×ªµ½×ó±ßµÄ h ½áµã
+     * å·¦æ—‹è½¬ç»“ç‚¹ h çš„çº¢è‰²å³é“¾æ¥
+     * @param h çº¢è‰²å³é“¾æ¥çš„ç»“ç‚¹
+     * @return çº¢è‰²é“¾æ¥æ—‹è½¬åˆ°å·¦è¾¹çš„ h ç»“ç‚¹
      */
     private Node rotateLeft(Node h)
     {
@@ -130,7 +130,7 @@ public class RBBST<Key extends Comparable<Key>, Value> {
 
     private void filpColors(Node h)
     {
-        // ·Ö½â 4- ½áµã£¬½«ÖĞ¼ä½áµã±äºìËÍÈë¸¸½áµã
+        // åˆ†è§£ 4- ç»“ç‚¹ï¼Œå°†ä¸­é—´ç»“ç‚¹å˜çº¢é€å…¥çˆ¶ç»“ç‚¹
         h.color = !h.color;
         h.left.color = !h.left.color;
         h.right.color = !h.right.color;
@@ -146,8 +146,8 @@ public class RBBST<Key extends Comparable<Key>, Value> {
     {
         if (h.left == null)
             return null;
-        // Èç¹û h.left Óë h.left.left ¶¼ÊÇºÚ£¬ËµÃ÷ h.left ÊÇÒ»¸ö 2-½áµã
-        // ÎªÁË·ÀÖ¹É¾³ı 2-½áµãµ¼ÖÂºìºÚÊ÷Æ½ºâ±»ÆÆ»µ£¬ĞèÒª½è½áµãÓë h.left ×é³É 3-½áµã»ò 4-½áµã
+        // å¦‚æœ h.left ä¸ h.left.left éƒ½æ˜¯é»‘ï¼Œè¯´æ˜ h.left æ˜¯ä¸€ä¸ª 2-ç»“ç‚¹
+        // ä¸ºäº†é˜²æ­¢åˆ é™¤ 2-ç»“ç‚¹å¯¼è‡´çº¢é»‘æ ‘å¹³è¡¡è¢«ç ´åï¼Œéœ€è¦å€Ÿç»“ç‚¹ä¸ h.left ç»„æˆ 3-ç»“ç‚¹æˆ– 4-ç»“ç‚¹
         if (!isRed(h.left) && !isRed(h.left.left))
             h = moveRedLeft(h);
         h.left = deleteMin(h.left);
@@ -156,10 +156,10 @@ public class RBBST<Key extends Comparable<Key>, Value> {
 
     private Node moveRedLeft(Node h)
     {
-        // ½« h¡¢h.left¡¢h.right ½áºÏ³ÉÒ»¸ö 4-½áµã
+        // å°† hã€h.leftã€h.right ç»“åˆæˆä¸€ä¸ª 4-ç»“ç‚¹
         filpColors(h);
-        // Èç¹û h.right±¾À´²»ÊÇÒ»¸ö 2-½áµã£¬ÏÔÈ»²»ÄÜÖ±½ÓÓë h¡¢h.left½áºÏ
-        // ×ªÎª´Ó h.right½èÒ»¸ö½áµãÓë h.left ×é³ÉÒ»¸ö 3-½áµã
+        // å¦‚æœ h.rightæœ¬æ¥ä¸æ˜¯ä¸€ä¸ª 2-ç»“ç‚¹ï¼Œæ˜¾ç„¶ä¸èƒ½ç›´æ¥ä¸ hã€h.leftç»“åˆ
+        // è½¬ä¸ºä» h.rightå€Ÿä¸€ä¸ªç»“ç‚¹ä¸ h.left ç»„æˆä¸€ä¸ª 3-ç»“ç‚¹
         if (isRed(h.right.left))
         {
             h.right = rotateRight(h.right);
@@ -177,13 +177,13 @@ public class RBBST<Key extends Comparable<Key>, Value> {
 
     private Node deleteMax(Node h)
     {
-        // ×óÇãºìºÚÊ÷ºìÁ´½Ó¶¼ÔÚ×ó±ß£¬ÎªÁËÕÒµ½×î´óÖµ½«ºìÁ´½ÓÒÆµ½ÓÒ±ß
+        // å·¦å€¾çº¢é»‘æ ‘çº¢é“¾æ¥éƒ½åœ¨å·¦è¾¹ï¼Œä¸ºäº†æ‰¾åˆ°æœ€å¤§å€¼å°†çº¢é“¾æ¥ç§»åˆ°å³è¾¹
         if (isRed(h.left))
             h = rotateRight(h);
         if (h == null)
             return null;
-        // Èç¹û h.right ºÍ h.right.left ¾ùÎªºÚ£¬ËµÃ÷ h.right ÊÇ 2-½áµã£¬ĞèÒª½è½áµã
-        // (ÒòÎªÊÇ×óÇãºìºÚÊ÷£¬Í¨¹ı h.right.left ÊÇ·ñÎªºìÅĞ¶Ï h.right ÊÇ·ñÓëÏÂ²ã½áµã×é³É 3-½áµã)
+        // å¦‚æœ h.right å’Œ h.right.left å‡ä¸ºé»‘ï¼Œè¯´æ˜ h.right æ˜¯ 2-ç»“ç‚¹ï¼Œéœ€è¦å€Ÿç»“ç‚¹
+        // (å› ä¸ºæ˜¯å·¦å€¾çº¢é»‘æ ‘ï¼Œé€šè¿‡ h.right.left æ˜¯å¦ä¸ºçº¢åˆ¤æ–­ h.right æ˜¯å¦ä¸ä¸‹å±‚ç»“ç‚¹ç»„æˆ 3-ç»“ç‚¹)
         if (!isRed(h.right) && !isRed(h.right.left))
             h = moveRedRight(h);
         h.right = deleteMax(h.right);
@@ -192,10 +192,10 @@ public class RBBST<Key extends Comparable<Key>, Value> {
 
     private Node moveRedRight(Node h)
     {
-        // ½« h¡¢h.left¡¢h.right ½áºÏ³ÉÒ»¸ö 4-½áµã
+        // å°† hã€h.leftã€h.right ç»“åˆæˆä¸€ä¸ª 4-ç»“ç‚¹
         filpColors(h);
-        // Èç¹û h.left.left Îªºì£¬ËµÃ÷ h.left ±¾Éí²»ÊÇÒ»¸ö 2-½áµã£¬²»ÄÜÖ±½ÓÓë h.right¡¢h½áºÏ
-        // ´Ó h.left ½è½áµãÓë h.right ×é³É 3-½áµã
+        // å¦‚æœ h.left.left ä¸ºçº¢ï¼Œè¯´æ˜ h.left æœ¬èº«ä¸æ˜¯ä¸€ä¸ª 2-ç»“ç‚¹ï¼Œä¸èƒ½ç›´æ¥ä¸ h.rightã€hç»“åˆ
+        // ä» h.left å€Ÿç»“ç‚¹ä¸ h.right ç»„æˆ 3-ç»“ç‚¹
         if (isRed(h.left.left))
         {
             h = rotateRight(h);
@@ -214,31 +214,31 @@ public class RBBST<Key extends Comparable<Key>, Value> {
     private Node delete(Node h, Key key)
     {
         int cmp = key.compareTo(h.key);
-        // key ÔÚ×ó²à
+        // key åœ¨å·¦ä¾§
         if (cmp < 0)
         {
-            // Èç¹û h.left ÊÇÒ»¸ö 2-½áµã£¬½è½áµã
+            // å¦‚æœ h.left æ˜¯ä¸€ä¸ª 2-ç»“ç‚¹ï¼Œå€Ÿç»“ç‚¹
             if (!isRed(h.left) && !isRed(h.left.left))
                 h = moveRedLeft(h);
-            // µİ¹éÉ¾³ı
+            // é€’å½’åˆ é™¤
             h.left = delete(h.left, key);
         }
-        // key ÔÚÓÒ²à»ò h.key == key
+        // key åœ¨å³ä¾§æˆ– h.key == key
         else
         {
-            // ½«ºìÁ´½Ó×ªµ½ÓÒ²à
+            // å°†çº¢é“¾æ¥è½¬åˆ°å³ä¾§
             if (isRed(h.left))
                 h = rotateRight(h);
-            // ÔÚÊ÷µÄµ×²¿ÏàµÈ£¬²»ĞèÒªµ£ĞÄÉ¾³ıÕâ¸ö½ÚµãÖ®ºó×Ó½ÚµãµÄÎÊÌâ¡£Ö±½ÓÉ¾³ı
+            // åœ¨æ ‘çš„åº•éƒ¨ç›¸ç­‰ï¼Œä¸éœ€è¦æ‹…å¿ƒåˆ é™¤è¿™ä¸ªèŠ‚ç‚¹ä¹‹åå­èŠ‚ç‚¹çš„é—®é¢˜ã€‚ç›´æ¥åˆ é™¤
             if (cmp == 0 && (h.right == null))
                 return null;
-            // h.right ²»ÊÇ 2-node£¬ĞèÒª½è½áµã
+            // h.right ä¸æ˜¯ 2-nodeï¼Œéœ€è¦å€Ÿç»“ç‚¹
             if (!isRed(h.right) && !isRed(h.right.left))
                 h = moveRedRight(h);
-            // ²»ÔÚÊ÷µ×ÏàµÈ£¬ÓÃ¼Ì³Ğ½áµã¸²¸Ç h ²¢½«Æä´ÓÓÒ×ÓÊ÷ÖĞÉ¾³ı
+            // ä¸åœ¨æ ‘åº•ç›¸ç­‰ï¼Œç”¨ç»§æ‰¿ç»“ç‚¹è¦†ç›– h å¹¶å°†å…¶ä»å³å­æ ‘ä¸­åˆ é™¤
             if (cmp == 0)
             {
-                h.key = min(h.right);
+                h.key = min(h.right).key;
                 h.value = get(h.key);
                 h.right = deleteMin(h.right);
             }
@@ -249,9 +249,9 @@ public class RBBST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * ĞŞÕıÓÒÇãÁ´½Ó£¬·Ö½â 4-½áµã
-     * @param x ½áµã
-     * @return ×óÇã¡¢·Ç 4-½áµãµÄ½Úµã
+     * ä¿®æ­£å³å€¾é“¾æ¥ï¼Œåˆ†è§£ 4-ç»“ç‚¹
+     * @param x ç»“ç‚¹
+     * @return å·¦å€¾ã€é 4-ç»“ç‚¹çš„èŠ‚ç‚¹
      */
     private Node  balacne(Node x)
     {
@@ -266,10 +266,10 @@ public class RBBST<Key extends Comparable<Key>, Value> {
         return x;
     }
 
-    private Key min(Node h)
+    private Node min(Node h)
     {
         if (h.left == null)
-            return h.key;
+            return h;
         return min(h.left);
     }
 
