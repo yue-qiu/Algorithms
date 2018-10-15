@@ -124,16 +124,22 @@ public class BST<Key extends Comparable<Key>, Value> {
         return x.key;
     }
 
+    /**
+     * 找出大于等于 key 最小的结点
+     * @param x 根节点
+     * @param key 目标key
+     * @return 大于等于 key 的最小结点
+     */
     private Node ceiling(Node x, Key key)
     {
         if (x == null)
             return null;
         int cmp = key.compareTo(x.key);
         if (cmp > 0)
-            return ceiling(x.right, key);
+            return ceiling(x.right, key); // cmp 大于 0，肯定在右子树，向右递归
         if (cmp == 0)
-            return x;
-        Node t = ceiling(x.left, key);
+            return x; // 等于 0，找到目标结点
+        Node t = ceiling(x.left, key); // cmp < 0，可能在左子树，如果向左递归返回 null 说明当前结点即为目标结点，否则返回左子树递归结果
         if (t != null)
             return t;
         else
@@ -176,12 +182,12 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x == null)
             return 0;
         int cmp = key.compareTo(x.key);
-        if (cmp > 0) // key > x.key，说明要从右子树寻找key结点，此时key结点位置为 左子树结点和 + 1(当前节点) + key在右子树中的位置
+        if (cmp > 0) // key > x.key，说明要从右子树寻找key结点。更新 rank = rank累计 + 1 + 左子结点总数
             return 1 + size(x.left) + rank(x.right, key);
-        else if (cmp < 0) // key < x.key，说明要从左子树寻找key结点，此时key结点位置为 key在左子树中的位置
+        else if (cmp < 0) // key < x.key，说明要从左子树寻找key结点，此时key结点位置为 key在左子树中的位置，不需要增加 rank 值
             return rank(x.left, key);
         else
-            return size(x.left); // key == x.key，x即是key结点，此时key结点位置为 x左子树结点和
+            return size(x.left); // key == x.key，x 即是key结点，递归结束，返回左子结点总数。rank = rank累计 + 左子结点总数
     }
     
     public Key select(int k)
@@ -408,6 +414,29 @@ public class BST<Key extends Comparable<Key>, Value> {
             queue.enqueue(x.key);
         if (cmphi > 0) // high 大于x.key，向x右子树递归遍历
             keys(x.right, queue, low, high);
+    }
+
+    public void reversal()
+    {
+        root = reversal(root);
+    }
+
+    /**
+     * 反转二叉树
+     * @param x 根结点
+     * @return 左右结点反转的根结点
+     */
+    private Node reversal(Node x)
+    {
+        if (x == null)
+            return null;
+        x.left = reversal(x.left);
+        x.right = reversal(x.right);
+
+        Node temp = x.left;
+        x.left = x.right;
+        x.right = temp;
+        return x;
     }
 }
 
