@@ -1,20 +1,20 @@
 package Algorithms.S3P4;
 
-public class LinearProbingHahsST<Key, Value> {
+public class LinearProbingHashST<Key, Value> {
     private int N; // 符号表中键值对总数
     private int M = 16; // 线性探测表的大小
     private Key[] keys; // 键
     private Value[] values; // 值
 
     @SuppressWarnings("unchecked")
-    public LinearProbingHahsST()
+    public LinearProbingHashST()
     {
         keys = (Key[]) new Object[M];
         values = (Value[]) new Object[M];
     }
 
     @SuppressWarnings("unchecked")
-    public LinearProbingHahsST(int M)
+    public LinearProbingHashST(int M)
     {
         this.M = M;
         keys = (Key[]) new Object[M];
@@ -28,7 +28,7 @@ public class LinearProbingHahsST<Key, Value> {
 
     private void resize(int size)
     {
-        LinearProbingHahsST<Key, Value> temp = new LinearProbingHahsST<>(size);
+        LinearProbingHashST<Key, Value> temp = new LinearProbingHashST<>(size);
         for (int i = 0; i < M; i++)
             if (keys[i] != null)
                 temp.put(keys[i], values[i]);
@@ -41,7 +41,7 @@ public class LinearProbingHahsST<Key, Value> {
     public void put(Key key, Value value)
     {
         if (N >= M / 2)
-            resize( 2 * M);
+            resize(2 * M);
         int i;
         for (i = hash(key); keys[i] != null; i = (i + 1) % M)
         {
@@ -66,20 +66,28 @@ public class LinearProbingHahsST<Key, Value> {
 
     public boolean contain(Key key)
     {
-        if (get(key) != null)
-            return true;
+        for (int i = hash(key); keys[i] != null; i = (i + 1) % M)
+            if (key.equals(keys[i]))
+                return true;
         return false;
     }
 
+    /**
+     * 不能只把键所在的位置则为 null，否则可能会导致与该键右相邻的键无法被 get 方法访问
+     * 需要对相邻的键重新排列
+     * @param key 目标键
+     */
     public void delete(Key key)
     {
         if (!contain(key))
             return;
+
         int i = hash(key);
         while (!key.equals(keys[i]))
             i = (i + 1) % M;
         keys[i] = null;
         values[i] = null;
+
         i = (i + 1) % M;
         while (keys[i] != null)
         {
