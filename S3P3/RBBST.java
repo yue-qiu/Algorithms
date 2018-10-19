@@ -1,4 +1,4 @@
-package Algorithms.S3P2;
+package Algorithms.S3P3;
 
 
 public class RBBST<Key extends Comparable<Key>, Value> {
