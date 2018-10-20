@@ -3,7 +3,7 @@ package Algorithms.S3P4;
 import Algorithms.S3P1.SequentialSearchST;
 
 public class SeparateChainingHashST<Key, Value> {
-    private int N; // 键值总对数
+    private int N = 0; // 键值总对数
     private int M; // 散列表大小
     private SequentialSearchST<Key, Value>[] st; // 存放链表对象的数组
 
@@ -16,7 +16,7 @@ public class SeparateChainingHashST<Key, Value> {
     public SeparateChainingHashST(int M)
     {
         this.M = M;
-        // java 不允许创建泛型数组，只能通过 类型擦除数组强转
+        // java 不允许创建泛型数组，只能通过类型擦除数组强转
         st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[M];
         for (int i = 0; i < M; i++)
             st[i] = new SequentialSearchST();
@@ -25,7 +25,7 @@ public class SeparateChainingHashST<Key, Value> {
     private int hash(Key key)
     {
         // 除留余数法保证散列值都在 0 —— M-1 之间
-        // hashCode 返回 32 位有符号整数，用 0x7fffffff 屏蔽符号位得到 31 位非负整数
+        // hashCode 返回 32 位有符号整数，为了避免得到负数，用 0x7fffffff 屏蔽符号位得到 31 位非负整数
         return (key.hashCode() & 0x7fffffff) % M;
     }
 
@@ -43,5 +43,6 @@ public class SeparateChainingHashST<Key, Value> {
     public void delete(Key key)
     {
         st[key.hashCode()].delete(key);
+        N--;
     }
 }
