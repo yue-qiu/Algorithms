@@ -42,7 +42,15 @@ public class SeparateChainingHashST<Key, Value> {
 
     public void delete(Key key)
     {
-        st[key.hashCode()].delete(key);
+        st[hash(key)].delete(key);
         N--;
+    }
+
+    public static void main(String[] args) {
+        SeparateChainingHashST<String, Integer> separateChainingHashST = new SeparateChainingHashST<>();
+        separateChainingHashST.put("hello", 2);
+        separateChainingHashST.put("bye", 4);
+        separateChainingHashST.delete("hello");
+        System.out.println(separateChainingHashST.get("hello"));
     }
 }
