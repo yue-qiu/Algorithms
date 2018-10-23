@@ -43,7 +43,7 @@ public class SequentialSearchST<Key, Value> {
 
     public void delete(Key key)
     {
-        while (first.key == key)
+        while (first != null && first.key == key)
         {
             first = first.next;
             count--;
