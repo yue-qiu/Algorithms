@@ -66,10 +66,9 @@ public class LinearProbingHashST<Key, Value> {
 
     public boolean contain(Key key)
     {
-        for (int i = hash(key); keys[i] != null; i = (i + 1) % M)
-            if (key.equals(keys[i]))
-                return true;
-        return false;
+        if (key == null)
+            return false;
+        return get(key) != null;
     }
 
     /**
