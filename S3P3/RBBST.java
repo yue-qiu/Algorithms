@@ -232,7 +232,7 @@ public class RBBST<Key extends Comparable<Key>, Value> {
             // 在树的底部相等，不需要担心删除这个节点之后子节点的问题。直接删除
             if (cmp == 0 && (h.right == null))
                 return null;
-            // h.right 不是 2-node，需要借结点
+            // h.right 是 2-node，需要借结点
             if (!isRed(h.right) && !isRed(h.right.left))
                 h = moveRedRight(h);
             // 不在树底相等，用继承结点覆盖 h 并将其从右子树中删除
