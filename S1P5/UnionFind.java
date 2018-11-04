@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class UnionFind {
     private int[] id;
-    private int count;
+    private int count; // 分类数
 
     public UnionFind(int N){
         // 初始化分量id数组
@@ -29,6 +29,7 @@ public class UnionFind {
             if (id[i] == pID){
                 id[i] = qID;
             }
+            // 每修改一次 id 值, 将类型数减 1
             count--;
         }
     }
