@@ -1,31 +1,14 @@
 package Algorithms.S4P1;
 
-
-import edu.princeton.cs.algs4.Stack;
-
 /**
- * Éî¶ÈÓÅÏÈËÑÑ°: Ò»ÌõµÀ×ßµ½ºÚ,Ö±µ½¾¡Í·²Å»ØÀ´»»Â·×ß £¨Éî¶È£©
- *
- * ÓÉÓÚ Graph ÓÃÁË±³°ü£¨ÏÈ½øºó³ö£©À´±£´æÁ¬½Ó¶¥µã£¬ËùÒÔ dfs »áÓÅÏÈ´¦Àí×îÍí¼ÓÈëµÄ¶¥µã
- *
- * Ô­ÀíÀàËÆÓÚÃÔ¹¬²ßÂÔ£º
- * ×ßÃÔ¹¬Ê±³£³£»áÇ£×ÅÒ»ÌõÉş×Ó£¬Èç¹û·¢ÏÖÕâ¸öÂ·¿ÚÒÑ¾­À´¹ı£¬»ØÍËµ½ÉÏÒ»¸öÂ·¿ÚÖØĞÂÑ¡Ôñ£¬
- * Èç¹ûÕâ¸öÂ·¿ÚËùÓĞµÀÂ·¶¼×ß¹ıÁË£¬ÔÙ»ØÍËµ½ÉÏÒ»¸öÂ·¿Ú
- *
- * ½á¹ûÓëÍ¼µÄ±íÊ¾ÓĞ¹Ø£¬¶ø²»½öÊÇÓë½á¹¹»òËã·¨ÓĞ¹Ø
- *
+ * æ·±åº¦ä¼˜å…ˆæœç´¢ã€‚åˆ¤æ–­å•ç‚¹è¿é€šæ€§
  */
 public class DepthFirstSearch {
-    private boolean[] marked; // ÔÚÕâ¸ö¶¥µãÉÏµ÷ÓÃ¹ı dfs ÁËÂğ?
-    private int[] edgeTo; // ´ÓÆğµãµ½Ò»¸ö¶¥µãµÄÒÑÖªÂ·¾¶ÉÏµÄ×îºóÒ»¸ö¶¥µã
-    private final int s; // Æğµã
-
+    private boolean[] marked;
 
     public DepthFirstSearch(Graph G, int s)
     {
         marked = new boolean[G.getV()];
-        edgeTo = new int[G.getV()];
-        this.s = s;
         dfs(G, s);
     }
 
@@ -33,57 +16,12 @@ public class DepthFirstSearch {
     {
         marked[v] = true;
         for (int w: G.adj(v))
-            if (!marked[w])
-            {
-                edgeTo[w] = v;
+            if (!marked[v])
                 dfs(G, w);
-            }
     }
 
-    public boolean marked(int w)
+    public boolean marked(int v)
     {
-        return marked[w];
-    }
-
-    public boolean hasPathTo(int v)
-    {
-        return marked(v);
-    }
-
-    public Iterable<Integer> pathTo(int v)
-    {
-        if (!hasPathTo(v))
-            return null;
-        Stack<Integer> path = new Stack<>();
-
-        // ÖÕµã»ØËİµ½Æğµã
-        for (int x = v; x != s; x = edgeTo[x])
-            path.push(x);
-        path.push(s);
-
-        return path;
+        return marked[v];
     }
 }
-
-class TestDFS
-{
-    public static void main(String[] args) {
-        Graph graph = new Graph(6);
-        graph.addEdge(0, 2);
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 5);
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 4);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 5);
-        graph.addEdge(3, 4);
-
-
-        DepthFirstSearch depthFirstSearch = new DepthFirstSearch(graph, 0);
-        System.out.println(depthFirstSearch.hasPathTo(5));
-        for (Integer i: depthFirstSearch.pathTo(5))
-            System.out.print(i + " ");
-    }
-}
-
-
