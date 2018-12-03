@@ -15,6 +15,12 @@ public class Cycle {
                 dfs(G, i, i);
     }
 
+    /**
+     * 深度优先搜索
+     * @param G 图
+     * @param v 起始结点
+     * @param u 与 v 相邻的上一结点
+     */
     private void dfs(Graph G, int v, int u)
     {
         marked[v] = true;
@@ -22,6 +28,7 @@ public class Cycle {
         {
             if (!marked[w])
                 dfs(G, w, v);
+            // 对于无环图，如果 w 已被标记，w 与 u 是相等的
             else if (w != u)
                 hasCycle = true;
         }
