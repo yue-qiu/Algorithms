@@ -200,28 +200,4 @@ public class AVLTree<T extends Comparable<T>>
             this.data = data;
         }
     }
-
-    public static void main(String[] args) {
-        int arr[] = {3, 2, 1, 4, 5, 6, 7, 16, 15, 14, 13, 12, 11, 10, 8, 9};
-        int i;
-        AVLTree<Integer> tree = new AVLTree<Integer>();
-
-        System.out.printf("== 依次添加: ");
-        for (i = 0; i < arr.length; i++) {
-            System.out.printf("%d ", arr[i]);
-            tree.put(arr[i]);
-        }
-
-        System.out.printf("\n== 中序遍历: \n");
-        tree.printMLR();
-        System.out.printf("== 高度: %d\n", tree.height());
-
-        i = 7;
-        System.out.printf("\n== 删除节点: %d", i);
-        tree.delete(i);
-
-        System.out.printf("\n== 中序遍历: \n");
-        tree.printMLR();
-        System.out.printf("== 高度: %d\n", tree.height());
-    }
 }

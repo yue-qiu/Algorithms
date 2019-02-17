@@ -133,7 +133,7 @@ class  ResizingArrayQueue<Item> implements Iterable<Item>
     private void resize(int value)
     {
         Item[] temp = (Item[]) new Object[value];
-        for (int i = 0; i < items.length; i++)
+        for (int i = 0; i < N; i++)
         {
             temp[i] = items[i];
         }
@@ -142,7 +142,7 @@ class  ResizingArrayQueue<Item> implements Iterable<Item>
 
     public void enqueue(Item item)
     {
-        if (N == items.length / 2)
+        if (N == items.length)
             this.resize(2 * items.length);
         items[N++] = item;
     }

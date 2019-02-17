@@ -2,7 +2,7 @@ package Algorithms.S3P4;
 
 public class LinearProbingHashST<Key, Value> {
     private int N; // 符号表中键值对总数
-    private int M = 16; // 线性探测表的大小
+    private int M = 17; // 线性探测表的大小
     private Key[] keys; // 键
     private Value[] values; // 值
 
@@ -88,6 +88,7 @@ public class LinearProbingHashST<Key, Value> {
         values[i] = null;
 
         i = (i + 1) % M;
+        // 对删除点右相邻的点进行重插入
         while (keys[i] != null)
         {
             Key keyToRedo = keys[i];

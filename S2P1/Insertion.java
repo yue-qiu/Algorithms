@@ -1,7 +1,13 @@
 package Algorithms.S2P1;
 
 /**
- * 插入排序，平均复杂度为 N*N(与输入有关)。适合小数组与部分有序数组
+ * 插入排序，平均复杂度 N*N(与输入有关，input-sensitive)，在最好情况下为 n
+ *
+ * 每次插入的比较次数可以理解为 已排序元素与待插入元素之间逆序数 + 1
+ * 对每个待插入元素逆序数求和结果记为 i，插入操作求和记为 n，得插入排序整体复杂度为 i+n
+ * 最好情况下，i = 0。通常情况下 i = n(n-1)/2。这是插入排序复杂度更本质的理解
+ *
+ * 插入排序适合小数组与部分有序数组
  */
 public class Insertion extends Example{
     public static void sort(Comparable[] a)
@@ -39,19 +45,5 @@ public class Insertion extends Example{
         for (int i = 1; i < a.length; i++)
             for (int j = i; less(a[j], a[j-1]); j--)
                 exch(a, j, j-1);
-    }
-
-    public static void main(String[] args)
-    {
-        Integer[] test = new Integer[100000];
-        for (int i = 0; i < test.length; i++)
-            test[i] = (int)(Math.random() * 100);
-
-        System.out.println("准备开始：");
-        long begin = System.currentTimeMillis();
-        sortWithoutExch(test);
-        long end = System.currentTimeMillis();
-        System.out.printf("10万个元素程序运行时间为：%.4f秒\n", (end - begin) / (double)1000);
-        System.out.println(isSorted(test));
     }
 }

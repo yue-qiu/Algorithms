@@ -4,8 +4,10 @@ public class HeapSort {
     public static void sort(Comparable[] pq)
     {
         int N = pq.length;
+        // floyd 法建堆，O(n) 复杂度
         for (int i = N / 2; i >= 1; i--)
             sink(pq, i, N);
+
         while (N > 1)
         {
             exch(pq, 1, N--);
@@ -54,19 +56,5 @@ public class HeapSort {
             if (less(a[i], a[i-1]))
                 return false;
         return true;
-    }
-
-    public static void main(String[] args)
-    {
-        Integer[] test = new Integer[10000000];
-        for (int i = 0; i < test.length; i++)
-            test[i] = (int)(Math.random() * 100);
-
-        System.out.println("准备开始：");
-        long begin = System.currentTimeMillis();
-        sort(test);
-        long end = System.currentTimeMillis();
-        System.out.printf("10万个元素程序运行时间为：%.4f秒\n", (end - begin) / (double)1000);
-        System.out.println(isSorted(test));
     }
 }

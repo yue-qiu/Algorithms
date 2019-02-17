@@ -2,6 +2,8 @@ package Algorithms.S2P1;
 
 /**
  * 选择排序，复杂度为 N*N（与输入无关）
+ * 与 bubble 相比，元素移动次数少得多
+ * 稳定（less比较器决定）
  */
 public class Selection extends Example {
     public static void sort(Comparable[] a)

@@ -2,8 +2,9 @@ package Algorithms.S2P4;
 
 import java.util.Comparator;
 
+// ÍêÈ«¶þ²æ¶Ñ
 public class MaxPQ<key extends Comparable<key>>{
-    private key[] pq;
+    private key[] pq; // priority queue
     private int N = 0;
     private static Comparator comparator;
     private final static int DEFAULT_CAPACITY = 1;

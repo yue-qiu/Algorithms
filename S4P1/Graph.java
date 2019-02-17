@@ -1,5 +1,6 @@
 package Algorithms.S4P1;
 
+
 import edu.princeton.cs.algs4.Bag;
 
 /**
@@ -54,13 +55,5 @@ public class Graph {
             s += "\n";
         }
         return s;
-    }
-
-    public static void main(String[] args) {
-        Graph graph = new Graph(5);
-        graph.addEdge(0, 2);
-        graph.addEdge(0, 3);
-        graph.addEdge(1, 3);
-        System.out.println(graph.toString());
     }
 }

@@ -3,6 +3,9 @@ package Algorithms.S3P2;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.Stack;
 
+/**
+ * 二叉搜索树，极端情况下会退化成单链
+ */
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root; // BST的根结点
 
@@ -11,7 +14,7 @@ public class BST<Key extends Comparable<Key>, Value> {
     {
         private Key key; //键
         private Value value; //值
-        private int N; // 以该结点为根的子树中的结点总数。作用类似于数组下标
+        private int N; // 以该结点为根的子树中的结点总数
         private Node left, right; // 左右结点
 
         public Node(Key key, Value value, int N)
